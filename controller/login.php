@@ -23,7 +23,7 @@ if (isset($_POST["submit"])) {
      }
      $email = filter($_POST["email"]);
      $password = filter($_POST["password"]);
-
+     $password=hash("sha256",$password);
 /*post variables control*/
     if(($email!="") and ($password!="")){
 

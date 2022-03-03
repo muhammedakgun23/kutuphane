@@ -10,7 +10,7 @@ $twig = new \Twig\Environment($loader);
 $login = $twig->load('login.twig');
 $message="";
 if (isset($_POST["submit"])) {
-    function validate($data){
+    function filter($data){
 
         $data = trim($data);
  
@@ -20,10 +20,10 @@ if (isset($_POST["submit"])) {
  
      }
      
-     $name = validate($_POST["name"]);
-     $surname = validate($_POST["surname"]);
-     $email = validate($_POST["email"]);
-     $password = validate($_POST["password"]);
+     $name = filter($_POST["name"]);
+     $surname = filter($_POST["surname"]);
+     $email = filter($_POST["email"]);
+     $password = filter($_POST["password"]);
 
     if (isset($_POST["name"])) {
         $name = $_POST["name"];
@@ -43,7 +43,7 @@ if (isset($_POST["submit"])) {
         $email = "";
     }
     if (isset($_POST["password"])) {
-        $password = $_POST["password"];
+        $password = hash("sha256",$_POST["password"]);
        
     } else {
         $password = "";

@@ -1,0 +1,44 @@
+{% include "header.twig" %}
+{% include "left-pane.twig" %}
+<div class="home col-sm-10 ">
+    <div class="container-fluid container-profile">
+        <div class="useprofile row">
+            <div class="col-sm-6">
+                <div class="useprofile-form text-center">
+                    <div class="p-3 py-2">
+
+                        <div class="d-flex justify-content-center align-items-center mb-3">
+                            <img src="../view/images/people.png" alt="" width="100">
+                        </div>
+                        <form action="profileedit.php" method="post">
+                            <div class="row mt-2">
+                                <input type="hidden" name="submit" id="">
+                                <div class="col-md-6 mt-2">
+                                    <input type="text" class="form-control" name="name"  placeholder="{{user.name}}">
+                                </div>
+                                <div class="col-md-6 mt-2">
+                                    <input type="text" class="form-control" name="surname"  placeholder="{{user.surname}}">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="email" value="" placeholder="{{user.mail}}">
+                                </div>
+                            </div>
+                            <div class="mt-5 text-center">
+                                <button class="btn btn-primary profile-button" type="submit">Güncelle</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <button class="btn btn-dark" onclick="history.back()">Geri</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
+{% include "footer.twig" %}

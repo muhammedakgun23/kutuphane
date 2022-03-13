@@ -1,0 +1,72 @@
+{% include "header.twig" %}
+{% include "left-pane.twig" %}
+<div class="home col-sm-10 ">
+    <div class="container-fluid container-profile p-4">
+        <div class="row d-flex align-items-center  justify-content-between">
+            <div class="col-sm-12 col-md-12 col-lg-4">
+                <div class="book-form text-center">
+                    <form action="mybook.php" method="post" enctype="multipart/form-data">
+                        <h3>Kitap Yükle</h3>
+                        <div class="col  form-group ">
+                            <input type="file" class="form-control" name="imgbook" id="customFile" />
+                        </div>
+                        <div class="col form-group">
+                            <input type="text" class="form-control" name="namebook" placeholder="Kitap Adı">
+                        </div>
+                        <div class="col form-group">
+                            <input type="text" class="form-control" name="authorname" placeholder="Yazar">
+                        </div>
+                        <div class="col form-group ">
+                            <select id="inputState" name="topic" class="form-control ">
+                                <option value="biyografi" selected>Biyografi</option>
+                                <option value="macera">Macera</option>
+                                <option value="aksiyon">Aksiyon</option>
+                            </select>
+                        </div>
+                        <div class="form-group col">
+                            <input type="hidden" name="submit">
+                            <input type="submit" class="btn btn-success pl-5 pr-5 " value="Yükle">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h5>{{ message }}</h5>
+            </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="row">
+                <div class="col-sm-12 text-center mybook-title">
+                    <h3>Kitaplarım</h3>
+                </div>
+                {% for books in book %}
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <a href="{{ books.id }}" class="text-white ">
+                        <div class="book-card-col text-center ">
+                            <div class="book-card">
+                                <img src="../view/images/books/{{ books.bookimage }}" class="" width="40%" alt="">
+                                <h6>
+                                    {{ books.namebook }}
+                                </h6>
+                                <p>
+                                    {{ books.authorname }}
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>

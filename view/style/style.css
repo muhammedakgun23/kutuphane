@@ -1,0 +1,342 @@
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+ul ,li {
+    list-style-type: none;
+}
+body {
+    background-color: #313030;
+    color: white !important;
+    
+}
+.header-home {
+    height: 100vh;
+}
+.home {
+    color: white !important;
+    padding: 1.5rem 1.5rem 0 1.5rem;
+    height: 100vh;
+}
+.hr {
+    height: 2px;
+    margin: 60px 0 50px 0;
+    background: rgba(255, 255, 255, .2)
+}
+
+.foot {
+    text-align: center
+}
+
+.card {
+    width: 500px;
+    left: 100px;
+    border: none !important;
+}
+
+::placeholder {
+    color: #b3b3b3
+}
+.left-pane{
+    background-color: #191D24;
+    height: 100vh;
+    
+    padding: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+   
+}
+.menu {
+    margin-top: 1rem;
+    
+}
+.menu a {
+    color: aliceblue;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+.menu a:hover {
+    color: rgb(167, 173, 179);
+}
+.menu i {
+margin-right: 0.8rem;
+}
+.user-prfile-home a{
+    background-color: #191D24;
+    padding: 0.2rem 4rem;
+    border-radius: 24px;
+    color: white;
+    font-weight: bold;
+}
+.user-prfile-home i{
+   margin-right: 50px;
+}
+.book-card-col {
+    background-color: #1f1e1e;
+    color: #fff;
+    padding: 1rem 0.2rem;
+    border-radius: 30px;
+    border: 10px solid #313030;
+    transition: transform .2s; /* Animation */
+}
+.book-card-col h6 {
+    font-size: 1.2rem;
+}
+.book-card-col p {
+    font-size: 1.0rem;
+}
+.book-card-col:hover {
+    transform: scale(1.06);
+}
+.book-card {
+    background-color: #1f1e1e;
+}
+.book-card h6,p{
+    margin-top: 0.8rem;
+    font-size: bold;
+}
+.img-book-card {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/*login*/
+.login .group {
+margin-bottom:1.5rem;
+margin-top: 1.2rem;
+    
+}
+
+.login-pages-container {
+
+    margin-top: 5rem;
+}
+
+.login-box {
+    background-color: inherit;
+}
+
+.login-snip {
+    padding: 90px 70px 50px 70px;
+    
+}
+.message-form {
+    border-radius: 27px;
+    padding: 0.4rem;
+    background-color: #c42323;
+}
+.message-form-succes {
+    border-radius: 27px;
+    padding: 0.4rem;
+    background-color: #188055;
+}
+.login-snip .login,
+.login-snip .sign-up-form {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    transition: all .4s linear
+}
+
+.login-snip .sign-in,
+.login-snip .sign-up,
+.login-space .group .check {
+    display: none
+}
+
+.login-snip .tab,
+.login-space .group .label,
+.login-space .group .button {
+    text-transform: uppercase
+}
+
+.login-snip .tab {
+    font-size: 22px;
+    margin-right: 15px;
+    padding-bottom: 5px;
+    margin: 0 15px 10px 0;
+    display: inline-block;
+    border-bottom: 2px solid transparent
+}
+
+.login-snip .sign-in:checked+.tab,
+.login-snip .sign-up:checked+.tab {
+    color: #fff;
+    border-color: #1161ee
+}
+
+.login-space {
+    min-height: 345px;
+    position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d
+
+}
+
+.login-space .group {
+    margin-bottom: 15px;
+}
+
+.login-space .group .label,
+.login-space .group .input,
+.login-space .group .button {
+    width: 100%;
+    color: #fff;
+    display: block
+}
+
+.login-space .group .input,
+.login-space .group .button {
+    border: none;
+    padding: 15px 20px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .1)
+}
+
+.login-space .group input[data-type="password"] {
+    text-security: circle;
+    -webkit-text-security: circle
+}
+
+.login-space .group .label {
+    color: #aaa;
+    font-size: 12px
+}
+
+.login-space .group .button {
+    background: #1161ee;
+    font-weight: bold;
+}
+.login-space .group .button:hover {
+    background: #0f55cf;
+    
+}
+
+.login-space .group label .icon {
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    position: relative;
+    display: inline-block;
+    background: rgba(255, 255, 255, .1)
+}
+
+.login-space .group label .icon:before,
+.login-space .group label .icon:after {
+    content: '';
+    width: 10px;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    transition: all .2s ease-in-out 0s
+}
+
+.login-space .group label .icon:before {
+    left: 3px;
+    width: 5px;
+    bottom: 6px;
+    transform: scale(0) rotate(0)
+}
+
+.login-space .group label .icon:after {
+    top: 6px;
+    right: 0;
+    transform: scale(0) rotate(0)
+}
+
+.login-space .group .check:checked+label {
+    color: #fff
+}
+
+.login-space .group .check:checked+label .icon {
+    background: #1161ee
+}
+
+.login-space .group .check:checked+label .icon:before {
+    transform: scale(1) rotate(45deg)
+}
+
+.login-space .group .check:checked+label .icon:after {
+    transform: scale(1) rotate(-45deg)
+}
+
+.login-snip .sign-in:checked+.tab+.sign-up+.tab+.login-space .login {
+    transform: rotate(0)
+}
+
+.login-snip .sign-up:checked+.tab+.login-space .sign-up-form {
+    transform: rotate(0)
+}
+
+*,
+:after,
+:before {
+    box-sizing: border-box
+}
+
+.clearfix:after,
+.clearfix:before {
+    content: '';
+    display: table
+}
+
+.clearfix:after {
+    clear: both;
+    display: block
+}
+.container-profile {
+   
+   
+
+}
+.useprofile {
+  padding: 1rem;
+
+}
+.useprofile h3{
+    border-bottom:1px solid gray;
+    margin-top: 0.5rem;
+    padding: 0.2rem;
+  }
+  .useprofile-form input{
+      border-radius: 28px;
+  }
+  .book-form  {
+      padding: 1.6rem;
+  }
+  .mybook-title {
+      background-color: #5e5858;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 27px;
+  }
+  .book-form-input input,select {
+      border-radius: 27px;
+  }
+  #inputState option {
+      border-radius: 27px;
+  }
+  @media only screen and (max-width: 720px) {
+    .left-pane {
+    
+  
+    }
+  }
+/*profile and library */
+
+
+
+
+
+
+
+ 
+  

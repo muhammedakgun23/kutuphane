@@ -2,8 +2,7 @@
 session_start();
 require 'options.php';
 
-$loader = new \Twig\Loader\FilesystemLoader('../view');
-$twig = new \Twig\Environment($loader);
+
 $useprofile = $twig->load('useprofile.twig');
 
 $useid=$_SESSION['id'];

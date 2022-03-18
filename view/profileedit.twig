@@ -1,6 +1,5 @@
-{% include "header.twig" %}
-{% include "left-pane.twig" %}
-<div class="home col-sm-10 ">
+{% include "header.twig" %} {% include "left-pane.twig" %}
+<div class="home col-sm-10 order-2">
     <div class="container-fluid container-profile">
         <div class="useprofile row">
             <div class="col-sm-6">
@@ -14,10 +13,10 @@
                             <div class="row mt-2">
                                 <input type="hidden" name="submit" id="">
                                 <div class="col-md-6 mt-2">
-                                    <input type="text" class="form-control" name="name"  placeholder="{{user.name}}">
+                                    <input type="text" class="form-control" name="name" placeholder="{{user.name}}">
                                 </div>
                                 <div class="col-md-6 mt-2">
-                                    <input type="text" class="form-control" name="surname"  placeholder="{{user.surname}}">
+                                    <input type="text" class="form-control" name="surname" placeholder="{{user.surname}}">
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -39,6 +38,5 @@
     </div>
 </div>
 <script>
-
 </script>
 {% include "footer.twig" %}

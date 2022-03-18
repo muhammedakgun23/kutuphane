@@ -3,13 +3,13 @@
 session_start();
 require 'options.php';
 
-$loader = new \Twig\Loader\FilesystemLoader('../view');
-$twig = new \Twig\Environment($loader);
+
 $mybook = $twig->load('mybook.twig');
 
 $uyeid = $_SESSION['id'];
 $file_path = '../view/images/books/';
 $message = "";
+
 if (isset($_POST["submit"])) {
     function filter($data)
     {
@@ -28,7 +28,7 @@ if (isset($_POST["submit"])) {
 
     if ($_FILES['imgbook']['name']!="") {
         $filetype = $_FILES['imgbook']['type'];
-        if (($filetype == "image/png") or ($filetype == "image/jpg")) {
+        if (($filetype == "image/png") || ($filetype == "image/jpeg")) {
             
         
             $file = time()."-". basename($_FILES['imgbook']['name']);
@@ -73,11 +73,14 @@ if (isset($_POST["submit"])) {
 }
 $sql = "SELECT id ,namebook ,authorname,bookimage FROM books WHERE uyeid='$uyeid'";
 $result = $conn->query($sql);
-    // output data of each row
+
+  
+
+        $books= [];
     while($row = $result->fetch_assoc()) {
         $books[]=$row;
        
-    }
-
+    
+}
 echo $mybook->render(['message'=>$message,'book'=>$books]);
 ?>

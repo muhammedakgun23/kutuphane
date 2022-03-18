@@ -1,0 +1,49 @@
+{% include "left-pane.twig" %}
+<div class="home  col-sm-12 col-md-12 col-lg-10 order-2">
+    <div class="search-library">
+        <div class="row">
+            <div class="col-sm-4 mt-2">
+                <select class="form-select form-control" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+            </div>
+            <div class="col-sm-4 mt-2 has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <div class="col-sm-4 mt-2">
+                <button type="button" class="btn btn-primary">Kütüphanede Ara</button>
+            </div>
+        </div>
+    </div>
+    <div class="library-book">
+        <div class="row">
+            {% for library in library %}
+            <div class="col-lg-2 col-md-6 col-sm-6 ">
+                <a href="libraryuser.php?book={{ library.id }}&user={{library.uyeid}}" class="text-white">
+                    <div class="book-card-col text-center cart-mybook">
+                        <div class="book-card">
+                            <img src="../view/images/books/{{library.bookimage }}" class="" width="90" height="140" alt="">
+                            <h6>
+                                {{ library.namebook|upper }}
+                            </h6>
+                            <p>
+                                {{ library.authorname|upper }}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+
+</div>
+{% include "footer.twig" %}

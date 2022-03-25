@@ -1,91 +1,93 @@
-{% include "header.twig" %} {% include "left-pane.twig" %}
+{% include "header.twig" %}
+{% include "left-pane.twig" %}
 <div class="home col-sm-10 order-2">
-    <div class="container-fluid my-book-pages p-4">
-        <div class="row">
-            <div class="col-lg-4 text-center">
-                <div class="text-center">
-                    <div class="">
-                        <img id="img" src="../view/images/books/{{ book.bookimage }}" class="" width="90" height="140" alt="">
-                        <h6>
-                            {{ book.namebook|upper }}
-                        </h6>
-                        <p>
-                            {{ book.authorname|upper }}
-                        </p>
-                    </div>
-                </div>
-                <p id="id">{{book.id}}</p>
-                <p id="imgbook">{{ book.bookimage }}</p>
-
-                <div class="mt-4">
-                    <button class="btn btn-primary m-2" id="updatebook">Güncelle</button>
-                    <button class="btn btn-danger m-2" id="delete">Sil</button>
-                </div>
-            </div>
-            <div class="col-lg-4 text-center ">
-                <div class="book-form text-center book-form-update">
-                    <form action="mybook.php" method="post" enctype="multipart/form-data">
-                        <h3>Güncelle</h3>
-                        <div class="col  form-group ">
-                            <input type="file" class="form-control" name="imgbook" id="customFile" />
-                        </div>
-                        <div class="col form-group">
-                            <input type="text" class="form-control" name="namebook" placeholder="Kitap Adı">
-                        </div>
-                        <div class="col form-group">
-                            <input type="text" class="form-control" name="authorname" placeholder="Yazar">
-                        </div>
-                        <div class="col form-group ">
-                            <select id="inputState" name="topic" class="form-control ">
-                                <option value="biyografi" selected>Biyografi</option>
-                                <option value="macera">Macera</option>
-                                <option value="aksiyon">Aksiyon</option>
-                            </select>
-                        </div>
-                        <div class="form-group col">
-                            <input type="hidden" name="submit">
-                            <input type="submit" class="btn btn-success pl-5 pr-5 " value="Tamamla">
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <div class="container-fluid my-book-pages p-4">
+    <div class="row">
+      <div class="col-lg-4 text-center">
+        <div class="text-center">
+          <div class="">
+            <img src="../view/images/books/{{ book.bookimage }}" class="" width="90" height="140" alt="" />
+            <h6>
+              {{ book.namebook|upper }}
+            </h6>
+            <p>
+              {{ book.authorname|upper }}
+            </p>
+            <p>
+              {{ book.booktype|upper }}
+            </p>
+          </div>
         </div>
-
+        {#-------#}
+        <p id="id">
+          {{ book.id }}
+        </p>
+        <p id="imgb">
+          {{ book.bookimage }}
+        </p>
+         {# 
+       <form action="deletebook.php" method="post" >
+        <input type="text" name="idbook" value="{{ book.id }}"  />
+        <input type="text" name="bookimg" value="{{ book.bookimage }}"  />
+        <input type="submit" name="gönder">
+      </form>
+       --------------------#}
+        <div class="mt-4">
+          <button class="btn btn-primary m-2" id="updatebook">
+            Güncelle
+          </button>
+        <a href="mybookpages.php?book={{ book.id }}&bookimg={{ book.bookimage }}" class="btn btn-danger m-2">Sil</a>
+        </div>
+      </div>
+      <div class="col-lg-4 text-center ">
+        <div class="book-form text-center book-form-update">
+          <form action="mybookpages.php" method="post" enctype="multipart/form-data">
+            <h3>
+              Güncelle
+            </h3>
+            <div class="col  form-group ">
+              <input type="file" class="form-control" name="imgbook" value="" id="customFile" />
+            </div>
+            <div class="col form-group">
+              <input type="text" class="form-control" name="namebook" value="{{ book.namebook|upper }}" placeholder="Kitap Adı" />
+            </div>
+            <div class="col form-group">
+              <input type="text" class="form-control" name="authorname" value="{{ book.authorname|upper }}" placeholder="Yazar" />
+            </div>
+            <div class="col form-group ">
+              <select id="inputState" name="topic" class="form-control ">
+                <option value="biyografi" selected>
+                  Biyografi
+                </option>
+                <option value="macera">
+                  Macera
+                </option>
+                <option value="aksiyon">
+                  Aksiyon
+                </option>
+              </select>
+            </div>
+            <div class="form-group col">
+              <input type="hidden" name="submit" value="{{ book.id }}" />
+              <input type="submit" class="btn btn-success pl-5 pr-5 " value="Tamamla" />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-4 text-center ">
+        <h3 class="{% if message %} message-succes-update {% endif %}">
+          {{ message }}
+        </h3>
+      </div>
     </div>
+  </div>
 </div>
 <script>
-    $(document).ready(function() {
-        $("#updatebook").click(function() {
-            $(".book-form-update").slideToggle();
-        });
+  $(document).ready(function () {
+    $('#updatebook').click(function () {
+      $('.book-form-update').slideToggle()
+    })
     });
-    $(document).ready(function() {
-
-        $("#delete").click(function() {
-
-            var id = $("#id").html();
-            var img = $("#imgbook").text();
-            var answer = confirm("Silme işlemini tamamlamak istiyormusunuz!");
-            if (answer) {
-                $.ajax({
-                    type: "POST",
-                    url: "deletebook.php",
-                    data: {
-                        id: id,
-                        img: img,
-                    },
-                    cache: false,
-                    success: function() {
-                        alert("Silindi!");
-                        location.href = "mybook.php";
-                    },
-
-                });
-            }
-
-
-
-        });
-
-    });
+  
+ 
 </script>

@@ -1,20 +1,48 @@
+
 {% include "left-pane.twig" %}
+
 <div class="home home-library-userbook col-sm-12 col-md-12 col-lg-10 order-2">
     <div class="row library-userbook d-flex align-items-center">
-        <div class="col-sm-6 text-center">
+        <div class="col-sm-4 text-center">
             <img src="../view/images/books/{{library.bookimage }}" width="200" height="300" alt="">
             <h4 class="mt-4">{{library.namebook }}</h4>
             <h4 class="mt-4">{{library.authorname }}</h4>
         </div>
-        <div class="col-sm-6 text-center">
+        <div class="col-sm-4 text-center">
             <img src="../view/images/people.png" class="img-responsive" width="300" height="300" alt="">
             <h4>{{user.name }}</h4>
             <h4>{{user.surname }}</h4>
-            <a class="mt-4 btn btn-success" href="mailto:{{user.mail}}">Mail Gönder</a>
+            <a class="mt-4 btn btn-secondary" href="mailto:{{user.mail}}">Mail Gönder</a>
+        <a class="mt-4 btn btn-success" href="mailto:{{user.mail}}">Mesaj Gönder</a>
         </div>
-        <div>
-            <button onclick="history.back()" class="btn btn-dark">Geri</button>
+        <div class="col-sm-4 text-center">
+   <!--message form-->
+       </div>
+    <div>
+        <button onclick="history.back()" class="btn btn-dark">Geri</button>
+    </div>
+    </div>
+    <h3 class="text-center mt-2">Kullanıcı Kütüphanesi</h3>
+    <div class="col-sm-12">
+        <div class="row">
+        {% for userbook in userbook %}
+        <div class="col-lg-2 col-md-6 col-sm-6 ">
+            <a href="libraryuser.php?book={{ userbook.id }}&user={{userbook.uyeid}}" class="text-white">
+                <div class="book-card-col text-center cart-mybook">
+                    <div class="book-card">
+                        <img src="../view/images/books/{{userbook.bookimage }}" class="" width="90" height="140" alt="">
+                        <h6>
+                            {{ userbook.namebook|upper }}
+                        </h6>
+                        <p>
+                            {{ userbook.authorname|upper }}
+                        </p>
+                    </div>
+                </div>
+            </a>
         </div>
+        {% endfor %}
+    </div>
     </div>
     <script>
     </script>

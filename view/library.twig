@@ -1,23 +1,25 @@
 {% include "left-pane.twig" %}
 <div class="home  col-sm-12 col-md-12 col-lg-10 order-2">
-    <div class="search-library">
-        <div class="row">
-            <div class="col-sm-4 mt-2">
+<div class="search-library">
+    <form action="library.php" id="formsearh" method="post">
+        <div class="row search-box">
+            {#<div class="col-sm-4 mt-2">
                 <select class="form-select form-control" aria-label="Default select example">
                     <option selected>Open this select menu</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                   </select>
-            </div>
+            </div>#}
             <div class="col-sm-4 mt-2 has-search">
                 <span class="fa fa-search form-control-feedback"></span>
-                <input type="text" class="form-control" placeholder="Search">
+                <input type="text" class="form-control" name="search" id="search" placeholder="Search">
             </div>
             <div class="col-sm-4 mt-2">
-                <button type="button" class="btn btn-primary">Kütüphanede Ara</button>
+                <button onclick="myFunction()"  class="btn btn-primary">Kütüphanede Ara</button>
             </div>
         </div>
+     </form>
     </div>
     <div class="library-book">
         <div class="row">
@@ -40,10 +42,15 @@
             {% endfor %}
         </div>
     </div>
-
-
-
-
-
 </div>
+
+<script>
+
+   
+</script>
+       
+
+
+</script>
+
 {% include "footer.twig" %}

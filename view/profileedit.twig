@@ -13,15 +13,16 @@
                             <div class="row mt-2">
                                 <input type="hidden" name="submit" id="">
                                 <div class="col-md-6 mt-2">
-                                    <input type="text" class="form-control" name="name" placeholder="{{user.name}}">
+                                    <input type="text" class="form-control" name="name" value="{{user.name}}">
                                 </div>
                                 <div class="col-md-6 mt-2">
-                                    <input type="text" class="form-control" name="surname" placeholder="{{user.surname}}">
+                                    <input type="text" class="form-control" name="surname" value="{{user.surname}}">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control" name="email" value="" placeholder="{{user.mail}}">
+                                    <input type="text" class="form-control" name="email" value="{{user.mail}}">
+                                    <input type="hidden" class="form-control" name="update">
                                 </div>
                             </div>
                             <div class="mt-5 text-center">
@@ -31,12 +32,69 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-6">
+                <div class="useprofile-form text-center">
+                    <h3 class="{% if message %} message-succes-update {% endif %}">{{ message }}</h3>
+                </div>
+            </div>
             <div class="col-sm-12">
                 <button class="btn btn-dark" onclick="history.back()">Geri</button>
+                <div class="text-right">
+
+                    <button  class="btn btn-danger" onclick="myFunction()" id="deleteuser">Hesabını Sil</button>
+                </div>
+               
             </div>
         </div>
     </div>
 </div>
+
+</div>
 <script>
-</script>
-{% include "footer.twig" %}
+   
+
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+
+    }
+  
+
+        function myFunction() {
+            var id = JSON.stringify({{user.id}});
+            swal({
+        title: "Profil Sil,?",
+        text: "Profilinizi sildiğinizde üyeliğiniz ve kütüphaneniz silinecektir!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "POST",
+                url: "profileedit.php",
+                data: {
+                    delete_user: id
+
+                },
+                cache: false,
+                success: function() {
+                    alert($data);
+                    
+                }
+
+            });
+          swal("Üyeliğiniz ve bilgileriniz silindi!", {
+            icon: "success",
+            
+          });
+          Location.href="login.php";
+        } 
+      });
+         
+           
+
+        };
+
+
+</script>{% include "footer.twig" %}

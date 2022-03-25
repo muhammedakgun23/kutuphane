@@ -42,6 +42,7 @@ if (isset($_POST["submit"])) {
     if($count == 1) { 
       $userid=$row[0];
       $_SESSION['id']=$userid;
+   
       header("Location:home.php");  
     }else {
       $loginmessage = "lütfen bilgilerinizi kontrol ediniz";

@@ -7,12 +7,21 @@ $libraryuser = $twig->load('libraryuser.twig');
 
 $myid = $_SESSION["id"];
 
-
+$idaccepid="";
 $userid = $_GET['user'];
 $sendid = $_SESSION["id"];
-
 $message = "";
 $book = "";
+
+/*profilimmi kontrolü*/
+if($_GET['user']==$_SESSION['id']){
+  $datamessage="benim profil";
+}else{
+  $datamessage="";
+}
+/***** */
+
+
 if (isset($_GET["book"])) {
   $bookid = $_GET['book'];
   $sql = "SELECT id,namebook ,authorname,booktype,bookimage FROM books WHERE id='$bookid'";
@@ -25,41 +34,62 @@ if (isset($_GET["book"])) {
 /*arkadaş sorgu*/
 if (isset($_GET["user"])) {
   $idsender = $_GET["user"];
-  $sqlfriendaccep = "SELECT friedstatu,senderid  FROM addfriends WHERE recipientid=$myid AND senderid=$idsender AND friedstatu=2";
+  $sqlfriendaccep = "SELECT friedstatu,senderid,recipientid  FROM addfriends WHERE recipientid=$myid AND senderid=$idsender AND friedstatu=2";
   $resultaccep = $conn->query($sqlfriendaccep);
 
   if ($resultaccep->num_rows > 0) {
 
     while ($rowaccep = $resultaccep->fetch_assoc()) {
       $idaccep = $rowaccep["senderid"];
+      $idaccepid = $rowaccep["recipientid"];
     }
     $friendacccep = "arkadaaşsınız";
   } else {
-    $sqlfriendaccep = "SELECT senderid,friedstatu  FROM addfriends WHERE recipientid=$idsender AND senderid=$myid AND friedstatu=2";
+    $sqlfriendaccep = "SELECT senderid,friedstatu,recipientid  FROM addfriends WHERE recipientid=$idsender AND senderid=$myid AND friedstatu=2";
     $resultaccep = $conn->query($sqlfriendaccep);
 
     if ($resultaccep->num_rows > 0) {
 
       while ($rowaccep = $resultaccep->fetch_assoc()) {
         $idaccep = $rowaccep["senderid"];
+        $idaccepid = $rowaccep["recipientid"];
       }
       $friendacccep = "arkadaaşsınız";
     } else {
       $friendacccep = "";
     }
-    $sqlfriendaccep = "SELECT senderid,friedstatu  FROM addfriends WHERE recipientid=$idsender AND senderid=$myid AND friedstatu=2";
+    $sqlfriendaccep = "SELECT senderid,friedstatu,recipientid  FROM addfriends WHERE recipientid=$idsender AND senderid=$myid AND friedstatu=2";
     $resultaccep = $conn->query($sqlfriendaccep);
 
     if ($resultaccep->num_rows > 0) {
 
       while ($rowaccep = $resultaccep->fetch_assoc()) {
         $idaccep = $rowaccep["senderid"];
+        $idaccepid = $rowaccep["recipientid"];
       }
       $friendacccep = "arkadaaşsınız";
     } else {
       $friendacccep = "";
     }
   }
+  /*istekler library sorgusu*/
+$sqlfriend = "SELECT id, senderid FROM addfriends WHERE recipientid='$sendid' AND senderid='$idsender' AND friedstatu='1'";
+$resultsender = $conn->query($sqlfriend);
+
+if ($resultsender->num_rows > 0) {
+    while($rowsender = $resultsender->fetch_assoc()) {
+        $idsender=$rowsender;
+       $senderidmyadd=$rowsender['senderid'];
+        
+              
+           }
+       }else{
+         $senderidmyadd="";
+       }
+     
+   }
+        
+ 
 
   /*kişi kitap sorgu*/
   $sqluser = "SELECT id,name,surname,mail FROM users WHERE id='$userid'";
@@ -74,7 +104,7 @@ if (isset($_GET["user"])) {
   while ($rowuserook = $resultuserook->fetch_assoc()) {
     $bookuserook[] = $rowuserook;
   }
-}
+
 /*istek sorgu*/
 /*friendsqury*/
 $sqlfriend = "SELECT * FROM addfriends WHERE senderid=$sendid AND recipientid=$userid AND friedstatu='1'";
@@ -86,10 +116,11 @@ if ($resultfriend->num_rows > 0) {
 }
 
 
-/**ad friends */
+/**arkadaş ekleme */
 
 if (isset($_POST["friendid"])) {
 
+ 
   $status = "1";
   $sendid = $_SESSION["id"];
   $recipiedtid = $_POST["friendid"];
@@ -109,8 +140,13 @@ if (isset($_POST["friendid"])) {
     }
   }
 }
+/*arkadaş id kontrol*/
 
-
+if($_SESSION['id']==$idaccepid){
+  $friendid = $idaccep;
+}else{
+  $friendid = $idaccepid;
+}
 
 
 
@@ -119,5 +155,8 @@ echo $libraryuser->render([
   'user' => $user,
   'userbook' => $bookuserook,
   'message' => $friendadd,
-  'accepfriend' => $friendacccep
+  'accepfriend' => $friendacccep,
+  'senderid' => $senderidmyadd,
+  'datamessage'=>$datamessage,
+  'friendid'=>$friendid 
 ]);

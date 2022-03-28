@@ -11,7 +11,7 @@ $idsenderinfor=[];
 $idaccepuser=[];
 
 /*arkadaş sil ve onay*/
-if(isset($_POST["friendid"])){
+/*if(isset($_GET["friendid"])){
 
   $status="1";
   $sendid=$_SESSION["id"];
@@ -33,7 +33,7 @@ if(isset($_POST["friendid"])){
       }
     }
 
-  }
+  }*/
 if(isset($_GET["accep"]) and isset($_GET["friend"])){
   $accep=$_GET["accep"];
   $sendid=$_GET["friend"];
@@ -52,7 +52,7 @@ if(isset($_GET["accep"]) and isset($_GET["friend"])){
   if(!isset($_GET["accep"]) and isset($_GET["friend"])){
     $sendid=$_GET["friend"];
   
-    $sql = "DELETE FROM addfriends WHERE  recipientid=$useid AND  senderid=$sendid";
+    $sql = "DELETE FROM addfriends WHERE  (recipientid=$useid and senderid=$sendid)  or (recipientid=$sendid and senderid=$useid)  ";
 
     if ($conn->query($sql)) {
        
@@ -75,7 +75,7 @@ if(isset($_GET["accep"]) and isset($_GET["friend"])){
 
 
 /*arkadaşlık istekleri*/
-$sqlfriend = "SELECT id, senderid FROM addfriends WHERE recipientid='$useid' AND friedstatu='$friendstatu'";
+$sqlfriend = "SELECT id, senderid FROM addfriends WHERE recipientid='$useid' AND friedstatu='1'";
 $resultsender = $conn->query($sqlfriend);
 
 if ($resultsender->num_rows > 0) {
@@ -97,33 +97,50 @@ if ($resultsender->num_rows > 0) {
    }
         
  }
+
     /*arkadaşlar*/
- $sqlfriendaccep = "SELECT senderid FROM addfriends WHERE recipientid=$useid AND friedstatu=2";
+ $sqlfriendaccep = "SELECT id,recipientid,senderid FROM addfriends WHERE (recipientid=$useid or senderid=$useid) AND friedstatu='2'";
  $resultaccep = $conn->query($sqlfriendaccep);
  
  if ($resultaccep->num_rows > 0) {
  
      while($rowaccep = $resultaccep->fetch_assoc()) {
-         $idaccep=$rowaccep["senderid"];
-       
- 
- 
- 
-        $sqlfrienaccepuser = "SELECT id, name,surname,mail FROM users WHERE id='$idaccep'";
-        $resultinfor = $conn->query($sqlfrienaccepuser);
-        if ($resultinfor->num_rows > 0) {
-            
-            while($rowinfor = $resultinfor->fetch_assoc()) {
-                $idaccepuser[]=$rowinfor;
-               
-            }
-        } 
-        else {
-        
-        }
+      $idaccep=$rowaccep['senderid'];
+      $idacceprec=$rowaccep['recipientid'];
+      }
+      if($useid===$idaccep) {
+          
       
+      $sqlfrienaccepuser = "SELECT id, name,surname,mail FROM users WHERE id='$idacceprec'";
+      $resultinfor = $conn->query($sqlfrienaccepuser);
+      if ($resultinfor->num_rows > 0) {
+          
+          while($rowinfor = $resultinfor->fetch_assoc()) {
+              $idaccepuser[]=$rowinfor;
+             
+          }
+      } 
+      else {
+      
+      }
+    }else {
+      $sqlfrienaccepuser = "SELECT id, name,surname,mail FROM users WHERE id='$idaccep'";
+      $resultinfor = $conn->query($sqlfrienaccepuser);
+      if ($resultinfor->num_rows > 0) {
+          
+          while($rowinfor = $resultinfor->fetch_assoc()) {
+              $idaccepuser[]=$rowinfor;
+             
+          }
+      } 
+
+
     }
+    }
+       
+      
+   
          
-  }
+ 
 
 echo $useprofile->render(['friend'=>$idsenderinfor,'myfriend'=>$idaccepuser]);

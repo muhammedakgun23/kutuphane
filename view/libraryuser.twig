@@ -18,34 +18,57 @@
                     <h4>
                         {{ user.surname }}
                     </h4>
+                    {% if datamessage %}
+                   <h2 class="text-primary">Benim Profilim</h2>
+                    {% else %}
                     <a class="mt-4 btn btn-secondary" href="mailto:{{ user.mail }}">
                         Mail Gönder
+                                            
                     </a>
-                   {# <a class="mt-4 btn btn-success" href="friendpages.php?friendid={{ user.id}}">
-                   Arkadaş Ekle
-                </a>#}
-                {% if accepfriend %}
-            <button class="mt-4 btn btn-success">Mesaj Gönder</button>
-        <button class="mt-4 btn btn-danger">Arkadaşlıktan Çıkar</button>
-            {% else %}
-              <button class="mt-4  {% if message.one %}btn btn-success {% else %}btn btn-primary {% endif %}" id="friendadd">{% if message.one %} İstek Gönderildi {% else %} Arkadaş ekle {% endif %}</button>
-            {% endif %}   
-            </div>
-                
+                   
+                    {% if senderid %}
+                    <a href="friendpages.php?friend={{senderid}}" class="btn btn-danger mt-4">
+                    Sil
+                </a>
+              
+                <a href="friendpages.php?accep=2&friend={{senderid}}" class="btn  btn-success mt-4">
+                    Onayla
+                </a>
+                    {% else %}
+                        {% if accepfriend %}
+                            <button class="mt-4 btn btn-success">
+                                Mesaj Gönder
+                            </button>
+                            <a href="friendpages.php?friend={{friendid}}" class="btn btn-danger mt-4">
+                            Arkadaşlıktan Çıkar
+                        </a>
+                                
+                            </button>
+                        {% else %}
+                            <button class="mt-4  {% if message.one %}btn btn-success {% else %}btn btn-primary {% endif %}" id="friendadd">
+                                {% if message.one %}
+                                    İstek Gönderildi 
+                                {% else %}
+                                    Arkadaş ekle 
+                                {% endif %}
+                            </button>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                </div>
                 <div class="col-sm-4 text-center">
-                
-             <h3 id="message-friendadd" class="">
-                 
-               </h3>
+                    <h3 id="message-friendadd" class=""></h3>
                 </div>
                 <div>
                     <button onclick="history.back()" class="btn btn-dark">
                         Geri
+                                            
                     </button>
                 </div>
             </div>
             <h3 class="text-center mt-2">
                 Kullanıcı Kütüphanesi
+                            
             </h3>
             <div class="col-sm-12">
                 <div class="row">
@@ -69,12 +92,12 @@
                     </div>
                 </div>
             </div>
-                <script>
+            <script>
                     $(document).ready(function() {
 
                         $("#friendadd").click(function() {
             
-                            var id = JSON.stringify({{user.id}});
+                            var id = JSON.stringify({{ user.id }});
                           
                             $.ajax({
                                 type: "POST",
@@ -97,5 +120,4 @@
             
                     });
     </script>
-            
             

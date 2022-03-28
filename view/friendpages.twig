@@ -1,0 +1,76 @@
+{% include "header.twig" %}
+{% include "left-pane.twig" %}
+<div class="home col-sm-10 order-2">
+    <div class="container-fluid container-profile">
+        <div class="container-fluid p-3">
+            <div class="text-center">
+                <h3>
+                    Arkadaşlar
+                </h3>
+            </div>
+            <div class="row d-flex justify-content-around ">
+                <div class="col-md-5 friend-list-request d-flex align-items-center justify-content-center">
+                    <div class="p-1">
+                        <h4 class="text-center">
+                            İstekler
+                        </h4>
+                       
+                        {% for friend in friend %}
+                            <div class="row p-2 d-flex align-items-center d-flex justify-content-between friend-list-request-box ">
+                                <img class="mr-1" src="../view/images/people.png" alt="" width="50" />
+                                <div>
+                                <h6 class="mr-1">
+                                    {{ friend.name }}
+                                </h6>
+                                <h6 class="mr-1">
+                                    {{ friend.surname }}
+                                </h6>
+                            </div>
+                            <div>
+                                <a href="friendpages.php?friend={{friend.id}}" class="btn btn-sm btn-danger">
+                                    Sil
+                                </a>
+                                <a href="libraryuser.php?user={{friend.id}}" class="btn btn-sm btn-dark">
+                                    Profil
+                                </a>
+                                <a href="friendpages.php?accep=2&friend={{friend.id}}" class="btn btn-sm btn-success">
+                                    Onayla
+                                </a>
+                            </div>
+                            </div>
+                        {% endfor %}
+                    
+                    </div>
+                </div>
+                <div class="col-md-5 friend-list-request d-flex align-items-center justify-content-center ">
+                    <div class="p-1">
+                        <h4 class="text-center">
+                            Arkadaşlar
+                        </h4>
+                        {% for myfriend in myfriend %}
+                            <div class="row p-2 d-flex align-items-center d-flex justify-content-between friend-list-request-box">
+                                <img class="mr-1" src="../view/images/people.png" alt="" width="50" />
+                                <h6 class="mr-1">
+                                    {{ myfriend.name }}
+                                </h6>
+                                <h6 class="mr-1">
+                                    {{ myfriend.surname }}
+                                </h6>
+                                <a href="friendpages.php?friend={{ myfriend.id}}" class="btn btn-sm btn-danger ml-1">
+                                Sil
+                            </a>
+                            <a href="libraryuser.php?user={{ myfriend.id}}" class="btn btn-sm btn-dark ml-1">
+                                Profil
+                            </a>
+                            <a href="friendpages.php?accep=2&friend={{ myfriend.id}}" class="btn btn-sm btn-success ml-1">
+                                Onayla
+                            </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include "footer.twig" %}
+    

@@ -1,49 +1,101 @@
-
 {% include "left-pane.twig" %}
-
 <div class="home home-library-userbook col-sm-12 col-md-12 col-lg-10 order-2">
     <div class="row library-userbook d-flex align-items-center">
         <div class="col-sm-4 text-center">
-            <img src="../view/images/books/{{library.bookimage }}" width="200" height="300" alt="">
-            <h4 class="mt-4">{{library.namebook }}</h4>
-            <h4 class="mt-4">{{library.authorname }}</h4>
-        </div>
-        <div class="col-sm-4 text-center">
-            <img src="../view/images/people.png" class="img-responsive" width="300" height="300" alt="">
-            <h4>{{user.name }}</h4>
-            <h4>{{user.surname }}</h4>
-            <a class="mt-4 btn btn-secondary" href="mailto:{{user.mail}}">Mail Gönder</a>
-        <a class="mt-4 btn btn-success" href="mailto:{{user.mail}}">Mesaj Gönder</a>
-        </div>
-        <div class="col-sm-4 text-center">
-   <!--message form-->
-       </div>
-    <div>
-        <button onclick="history.back()" class="btn btn-dark">Geri</button>
-    </div>
-    </div>
-    <h3 class="text-center mt-2">Kullanıcı Kütüphanesi</h3>
-    <div class="col-sm-12">
-        <div class="row">
-        {% for userbook in userbook %}
-        <div class="col-lg-2 col-md-6 col-sm-6 ">
-            <a href="libraryuser.php?book={{ userbook.id }}&user={{userbook.uyeid}}" class="text-white">
-                <div class="book-card-col text-center cart-mybook">
-                    <div class="book-card">
-                        <img src="../view/images/books/{{userbook.bookimage }}" class="" width="90" height="140" alt="">
-                        <h6>
-                            {{ userbook.namebook|upper }}
-                        </h6>
-                        <p>
-                            {{ userbook.authorname|upper }}
-                        </p>
+            <img src="../view/images/books/{{ library.bookimage }}" width="200" height="300" alt="">
+                <h4 class="mt-4">
+                    {{ library.namebook }}
+                </h4>
+                <h4 class="mt-4">
+                    {{ library.authorname }}
+                </h4>
+            </div>
+            <div class="col-sm-4 text-center">
+                <img src="../view/images/people.png" class="img-responsive" width="300" height="300" alt="">
+                    <h4>
+                        {{ user.name }}
+                    </h4>
+                    <h4>
+                        {{ user.surname }}
+                    </h4>
+                    <a class="mt-4 btn btn-secondary" href="mailto:{{ user.mail }}">
+                        Mail Gönder
+                    </a>
+                   {# <a class="mt-4 btn btn-success" href="friendpages.php?friendid={{ user.id}}">
+                   Arkadaş Ekle
+                </a>#}
+                {% if accepfriend %}
+            <button class="mt-4 btn btn-success">Mesaj Gönder</button>
+        <button class="mt-4 btn btn-danger">Arkadaşlıktan Çıkar</button>
+            {% else %}
+              <button class="mt-4  {% if message.one %}btn btn-success {% else %}btn btn-primary {% endif %}" id="friendadd">{% if message.one %} İstek Gönderildi {% else %} Arkadaş ekle {% endif %}</button>
+            {% endif %}   
+            </div>
+                
+                <div class="col-sm-4 text-center">
+                
+             <h3 id="message-friendadd" class="">
+                 
+               </h3>
+                </div>
+                <div>
+                    <button onclick="history.back()" class="btn btn-dark">
+                        Geri
+                    </button>
+                </div>
+            </div>
+            <h3 class="text-center mt-2">
+                Kullanıcı Kütüphanesi
+            </h3>
+            <div class="col-sm-12">
+                <div class="row">
+                    {% for userbook in userbook %}
+                        <div class="col-lg-2 col-md-6 col-sm-6 ">
+                            <a href="libraryuser.php?book={{ userbook.id }}&user={{ userbook.uyeid }}" class="text-white">
+                                <div class="book-card-col text-center cart-mybook">
+                                    <div class="book-card">
+                                        <img src="../view/images/books/{{ userbook.bookimage }}" class="" width="90" height="140" alt="">
+                                            <h6>
+                                                {{ userbook.namebook|upper }}
+                                            </h6>
+                                            <p>
+                                                {{ userbook.authorname|upper }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
-            </a>
-        </div>
-        {% endfor %}
-    </div>
-    </div>
-    <script>
+            </div>
+                <script>
+                    $(document).ready(function() {
+
+                        $("#friendadd").click(function() {
+            
+                            var id = JSON.stringify({{user.id}});
+                          
+                            $.ajax({
+                                type: "POST",
+                                url: "libraryuser.php",
+                                data: {
+                                    friendid: id
+                                    
+                                },
+                                cache: false,
+                                success: function(data) {
+                                    window.location.reload()
+                                    $('select').attr("id", "newId")
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error(xhr);
+                                }
+                            });
+                            
+                        });
+            
+                    });
     </script>
-</div>
+            
+            

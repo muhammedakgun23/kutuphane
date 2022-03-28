@@ -79,7 +79,7 @@ $result = $conn->query($sql);
         $books= [];
     while($row = $result->fetch_assoc()) {
         $books[]=$row;
-       
+      
     
 }
 echo $mybook->render(['message'=>$message,'book'=>$books]);

@@ -3,31 +3,121 @@ session_start();
 require 'options.php';
 
 $libraryuser = $twig->load('libraryuser.twig');
-$bookid=$_GET['book'];
-$userid=$_GET['user'];
 
 
-$sql = "SELECT id,namebook ,authorname,booktype,bookimage FROM books WHERE id='$bookid'";
-$result = $conn->query($sql);
+$myid = $_SESSION["id"];
 
-    while($row = $result->fetch_assoc()) {
-        $book=$row;
-    
+
+$userid = $_GET['user'];
+$sendid = $_SESSION["id"];
+
+$message = "";
+$book = "";
+if (isset($_GET["book"])) {
+  $bookid = $_GET['book'];
+  $sql = "SELECT id,namebook ,authorname,booktype,bookimage FROM books WHERE id='$bookid'";
+  $result = $conn->query($sql);
+
+  while ($row = $result->fetch_assoc()) {
+    $book = $row;
+  }
+}
+/*arkadaş sorgu*/
+if (isset($_GET["user"])) {
+  $idsender = $_GET["user"];
+  $sqlfriendaccep = "SELECT friedstatu,senderid  FROM addfriends WHERE recipientid=$myid AND senderid=$idsender AND friedstatu=2";
+  $resultaccep = $conn->query($sqlfriendaccep);
+
+  if ($resultaccep->num_rows > 0) {
+
+    while ($rowaccep = $resultaccep->fetch_assoc()) {
+      $idaccep = $rowaccep["senderid"];
+    }
+    $friendacccep = "arkadaaşsınız";
+  } else {
+    $sqlfriendaccep = "SELECT senderid,friedstatu  FROM addfriends WHERE recipientid=$idsender AND senderid=$myid AND friedstatu=2";
+    $resultaccep = $conn->query($sqlfriendaccep);
+
+    if ($resultaccep->num_rows > 0) {
+
+      while ($rowaccep = $resultaccep->fetch_assoc()) {
+        $idaccep = $rowaccep["senderid"];
+      }
+      $friendacccep = "arkadaaşsınız";
+    } else {
+      $friendacccep = "";
+    }
+    $sqlfriendaccep = "SELECT senderid,friedstatu  FROM addfriends WHERE recipientid=$idsender AND senderid=$myid AND friedstatu=2";
+    $resultaccep = $conn->query($sqlfriendaccep);
+
+    if ($resultaccep->num_rows > 0) {
+
+      while ($rowaccep = $resultaccep->fetch_assoc()) {
+        $idaccep = $rowaccep["senderid"];
+      }
+      $friendacccep = "arkadaaşsınız";
+    } else {
+      $friendacccep = "";
+    }
+  }
+
+  /*kişi kitap sorgu*/
+  $sqluser = "SELECT id,name,surname,mail FROM users WHERE id='$userid'";
+  $resultuser = $conn->query($sqluser);
+
+  while ($rowuser = $resultuser->fetch_assoc()) {
+    $user = $rowuser;
+  }
+  $sqluserook = "SELECT id,uyeid,namebook ,authorname,booktype,bookimage FROM books WHERE uyeid='$userid'";
+  $resultuserook = $conn->query($sqluserook);
+  $bookuserook = [];
+  while ($rowuserook = $resultuserook->fetch_assoc()) {
+    $bookuserook[] = $rowuserook;
+  }
+}
+/*istek sorgu*/
+/*friendsqury*/
+$sqlfriend = "SELECT * FROM addfriends WHERE senderid=$sendid AND recipientid=$userid AND friedstatu='1'";
+$resultfriend = $conn->query($sqlfriend);
+if ($resultfriend->num_rows > 0) {
+  $friendadd = array("one" => "gonderilmemis");
+} else {
+  $friendadd = array("zero" => "gonderilmemis");
 }
 
-$sqluser = "SELECT id,name,surname,mail FROM users WHERE id='$userid'";
-$resultuser = $conn->query($sqluser);
 
-    while($rowuser = $resultuser->fetch_assoc()) {
-        $user=$rowuser;
-     
-   
-}
-$sqluserook = "SELECT id,uyeid,namebook ,authorname,booktype,bookimage FROM books WHERE uyeid='$userid'";
-$resultuserook = $conn->query($sqluserook);
-$bookuserook=[];
-    while($rowuserook = $resultuserook->fetch_assoc()) {
-        $bookuserook[]=$rowuserook;
+/**ad friends */
 
+if (isset($_POST["friendid"])) {
+
+  $status = "1";
+  $sendid = $_SESSION["id"];
+  $recipiedtid = $_POST["friendid"];
+
+  $sqlfriendtrue = "SELECT  friedstatu FROM addfriends WHERE senderid=$sendid AND recipientid=$recipiedtid";
+  $result = $conn->query($sqlfriendtrue);
+  if ($result->num_rows > 0) {
+    $message = "istek GÖNDERİLMİŞ";
+  } else {
+    $sqlfried = "INSERT INTO addfriends (recipientid, senderid, friedstatu)
+        VALUES ('$recipiedtid', '$sendid', '$status')";
+
+    if ($conn->query($sqlfried) === TRUE) {
+      $message = "istek göderildi";
+    } else {
+      $message = "hata oluştu";
+    }
+  }
 }
-echo $libraryuser->render(['library'=>$book,'user'=>$user,'userbook'=>$bookuserook]);
+
+
+
+
+
+echo $libraryuser->render([
+  'library' => $book,
+  'user' => $user,
+  'userbook' => $bookuserook,
+  'message' => $friendadd,
+  'accepfriend' => $friendacccep
+]);

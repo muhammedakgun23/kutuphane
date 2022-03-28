@@ -1,26 +1,31 @@
 {% include "header.twig" %} {% include "left-pane.twig" %}
 <div class="home col-sm-10 order-2">
-    <div class="container-fluid container-profile">
-        <div class="useprofile row justify-content-start align-items-center">
-            <div class="col-md-4 text-center useprofile-desc">
-                <img src="../view/images/people.png" alt="" width="100">
-                <div class="text-center">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <h5>{{ user.name }}</h5>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <h5>{{user.surname }}</h5>
-                        </div>
-                        <div class="col-md-12 col-sm-12">
-                            <h5>{{ user.mail }}</h5>
-                        </div>
-                    </div>
-                </div>
+  <div class="container-fluid container-profile">
+    <div class="useprofile row justify-content-start align-items-center">
+      <div class="col-md-4 text-center useprofile-desc">
+        <img src="../view/images/people.png" alt="" width="100" />
+        <div class="text-center">
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <h5>{{ user.name }}</h5>
             </div>
-            <div class="col-md-12 d-flex justify-content-end align-items-center">
-                <a href="profileedit.php" class="btn btn-primary">Profil Düzenle</a>
+            <div class="col-md-6 col-sm-12">
+              <h5>{{ user.surname }}</h5>
             </div>
+            <div class="col-md-12 col-sm-12">
+              <h5>{{ user.mail }}</h5>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="col-md-12 d-flex justify-content-end align-items-center">
+        <a href="profileedit.php" class="btn btn-primary"> Profil Düzenle </a>
+      </div>
     </div>
-</div>{% include "footer.twig" %}
+  </div>
+ 
+    </div>
+  </div>
+</div>
+  {% include "footer.twig" %}
+

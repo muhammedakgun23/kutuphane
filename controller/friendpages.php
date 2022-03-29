@@ -34,6 +34,7 @@ $idaccepuser=[];
     }
 
   }*/
+  /*istek kabul et*/
 if(isset($_GET["accep"]) and isset($_GET["friend"])){
   $accep=$_GET["accep"];
   $sendid=$_GET["friend"];
@@ -49,6 +50,7 @@ if(isset($_GET["accep"]) and isset($_GET["friend"])){
     
     
   }
+  /*istek sil*/
   if(!isset($_GET["accep"]) and isset($_GET["friend"])){
     $sendid=$_GET["friend"];
   
@@ -56,10 +58,10 @@ if(isset($_GET["accep"]) and isset($_GET["friend"])){
 
     if ($conn->query($sql)) {
        
-          echo  "kullanıcı sil kbaşarılı";
+        $islemler="kullanıcı sil başarılı";
          
       } else {
-         echo "kullanıcı sil kbalşarısız";
+         $islemler= "kullanıcı sil başarısız";
       }
   
     if ($conn->query($sql) === TRUE) {
@@ -107,35 +109,36 @@ if ($resultsender->num_rows > 0) {
      while($rowaccep = $resultaccep->fetch_assoc()) {
       $idaccep=$rowaccep['senderid'];
       $idacceprec=$rowaccep['recipientid'];
-      }
       if($useid===$idaccep) {
           
       
-      $sqlfrienaccepuser = "SELECT id, name,surname,mail FROM users WHERE id='$idacceprec'";
-      $resultinfor = $conn->query($sqlfrienaccepuser);
-      if ($resultinfor->num_rows > 0) {
-          
-          while($rowinfor = $resultinfor->fetch_assoc()) {
-              $idaccepuser[]=$rowinfor;
-             
-          }
-      } 
-      else {
-      
+        $sqlfrienaccepuser = "SELECT id, name,surname,mail FROM users WHERE id='$idacceprec'";
+        $resultinfor = $conn->query($sqlfrienaccepuser);
+        if ($resultinfor->num_rows > 0) {
+            
+            while($rowinfor = $resultinfor->fetch_assoc()) {
+                $idaccepuser[]=$rowinfor;
+               
+            }
+        } 
+        else {
+        
+        }
+      }else {
+        $sqlfrienaccepuser = "SELECT id, name,surname,mail FROM users WHERE id='$idaccep'";
+        $resultinfor = $conn->query($sqlfrienaccepuser);
+        if ($resultinfor->num_rows > 0) {
+            
+            while($rowinfor = $resultinfor->fetch_assoc()) {
+                $idaccepuser[]=$rowinfor;
+               
+            }
+        } 
+  
+  
       }
-    }else {
-      $sqlfrienaccepuser = "SELECT id, name,surname,mail FROM users WHERE id='$idaccep'";
-      $resultinfor = $conn->query($sqlfrienaccepuser);
-      if ($resultinfor->num_rows > 0) {
-          
-          while($rowinfor = $resultinfor->fetch_assoc()) {
-              $idaccepuser[]=$rowinfor;
-             
-          }
-      } 
-
-
-    }
+      }
+     
     }
        
       

@@ -105,7 +105,7 @@ if ($resultsender->num_rows > 0) {
     $bookuserook[] = $rowuserook;
   }
 
-/*istek sorgu*/
+/*istek gönderilip gönderilmediği sorgu*/
 /*friendsqury*/
 $sqlfriend = "SELECT * FROM addfriends WHERE senderid=$sendid AND recipientid=$userid AND friedstatu='1'";
 $resultfriend = $conn->query($sqlfriend);
